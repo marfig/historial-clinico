@@ -1,0 +1,47 @@
+﻿<section id="widget-grid" class="">
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                <header>
+                    <span class="widget-icon">
+                        <i class="fa fa-table"></i>
+                    </span>
+                    <h2>Lista de Usuarios </h2>
+                </header>
+
+                <div>
+                    <div class="widget-body">
+                        <div class="form-group" style="overflow: hidden">
+                            <button id="btnDlgUsuario" class="btn btn-default btn-primary pull-right" type="button">
+                                <i class="fa fa-plus-circle"></i> Agregar Usuario
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <div id="divListado"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<script id="responsive-column-template" type="text/x-kendo-template">
+    <strong>Usuario</strong>
+    <p class="col-template-val">#=data.UserName#</p>
+
+    <strong>Email</strong>
+    <p class="col-template-val">#=data.Email#</p>
+</script>
+
+@Html.Partial("~/Views/Account/_modalAddUsuario.cshtml")
+
+@section Scripts {
+    <link href="~/css/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/css/kendo/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/css/kendo/kendo.default.mobile.min.css" rel="stylesheet" />
+
+    <script src="~/js/kendo/kendo.all.min.js"></script>
+    <script src="~/js/account/list.usuarios.js?20190817"></script>
+    <script src="~/js/helpers/my-fields-validator.js"></script>
+}

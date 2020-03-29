@@ -1,0 +1,137 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.ApCardiovascularFormModel>
+
+@Html.Partial("~/Views/Evolucion/_modalApCardio.cshtml")
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left">
+        <li>
+            <a href="javascript:void('0')" onclick="NuevoApCardio(0); return false;">
+                <i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-mobile">Agregar</span>
+            </a>
+        </li>
+        @{
+            var active = "active";
+            foreach (var item in Model)
+            {
+                <li class="@active">
+                    <a href="#tab-ap-cardio-@item.Id" title="@item.UserName" data-toggle="tab"><i class="glyphicon glyphicon-minus"></i> <span class="hidden-mobile">@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</span> </a>
+                </li>
+                active = "";
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        @{
+            active = "active";
+            foreach (var item in Model)
+            {
+                <div class="tab-pane @active" id="tab-ap-cardio-@item.Id" style="overflow: hidden">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <fieldset>
+                                <legend>Estado</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Estado</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            @if (item.Inotropicos != null)
+                            {
+                                <fieldset>
+                                    <legend>Inotrópicos</legend>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-condensed table-bordered table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Nombre</th>
+                                                        <th class="text-center">Valor</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var inotropico in item.Inotropicos)
+                                                    {
+                                                        <tr>
+                                                            <td>@inotropico.Nombre</td>
+                                                            <td class="col-md-2"><span>@inotropico.Valor.ToString("N2")</span></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            }
+                            <fieldset>
+                                <legend>Evaluación cardiológica</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.EvaluacionCardiologica</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Enzimas cardiacas</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <table class="table table-condensed table-bordered table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Nombre</th>
+                                                        <th class="text-center">Valor</th>
+                                                        <th class="text-center">Curva</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var enzima in item.EnzimasCardiacas)
+                                                    {
+                                                        <tr>
+                                                            <td>@enzima.Nombre</td>
+                                                            <td class="col-md-2"><span>@string.Format("{0}", !enzima.Valor.HasValue ? "" : enzima.Valor.Value.ToString("N2"))</span></td>
+                                                            <td class="col-md-2"><span>@enzima.Curva</span></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Eventos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Eventos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Planes</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Planes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                active = "";
+            }
+        }
+    </div>
+</div>

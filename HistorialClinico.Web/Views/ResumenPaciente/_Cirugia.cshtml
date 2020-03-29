@@ -1,0 +1,92 @@
+﻿@model List<HistorialClinico.Domain.DTO.CirugiaDTO>
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+
+                    <p>
+                        <strong>Tuvo Cirugía: </strong>
+                        <span>@string.Format("{0}", item.TuvoCirugia ? "SI" : "NO")</span>
+                        <br />
+                        <span style="text-decoration: underline">Técnica:</span>
+                        <span>@item.Tecnica</span>
+
+                        <span style="text-decoration: underline">Hallazgos:</span>
+                        <span>@item.Hallazgos</span>
+                    </p>
+
+                    <p>
+                        <strong>Procedimiento: </strong>
+                        <span>@string.Format("{0}", item.Procedimiento ? "SI" : "NO")</span>
+                        <br />
+                        <span style="text-decoration: underline">¿Cuál?:</span>
+                        <span>@item.CualProcedimiento</span>
+                    </p>
+
+                    <p>
+                        <strong>Otras Acotaciones: </strong>
+                        <span>@item.OtrasAcotaciones</span>
+                    </p>
+
+                    @*<p>
+            <strong>Estado: </strong>
+            <span>@item.Estado</span>
+        </p>
+
+        <p>
+            <strong>Inotrópicos: </strong>
+
+            @foreach (var inop in item.Inotropicos)
+            {
+                <span style="text-decoration: underline">@inop.Nombre:</span>
+                <span>@inop.Valor</span>
+            }
+        </p>
+
+        <p>
+            <strong>Evaluación Cardiologica: </strong>
+            <span>@item.EvaluacionCardiologica</span>
+        </p>
+
+        <p>
+            <strong>Enzimas cardiácas: </strong>
+
+            @foreach (var enz in item.EnzimasCardiacas)
+            {
+                if (enz.Valor.HasValue)
+                {
+                    <span style="text-decoration: underline">@enz.Nombre:</span>
+                    <span>@enz.Valor</span>
+                    if (!string.IsNullOrWhiteSpace(enz.Curva))
+                    {
+                        <span>(@enz.Curva)</span>
+                    }
+                }
+            }
+        </p>
+
+        <p>
+            <strong>Eventos: </strong>
+            <span>@item.Eventos</span>
+        </p>
+
+        <p>
+            <strong>Planes: </strong>
+            <span>@item.Planes</span>
+        </p>*@
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

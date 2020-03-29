@@ -1,0 +1,53 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.CamaPacienteGridModel>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Cama</th>
+                    <th class="text-center">Paciente</th>
+                    <th class="text-center">Edad</th>
+                    <th class="text-center">Días de Internación</th>
+                    <th class="text-center col-md-1">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.PacienteId.HasValue)
+                    {
+                        <tr data-cama-id="@item.Id" data-paciente-id="@item.PacienteId">
+                            <td>@item.Cama</td>
+                            <td>@item.NombrePaciente</td>
+                            <td>@item.Edad</td>
+                            <td>@item.DiasInternacion</td>
+                            <td class="text-center">
+                                <a href="/ResumenPaciente/Index?PacienteId=@item.PacienteId" class="btn btn-primary" title="Ver Detalles">
+                                    <i class="glyphicon glyphicon-list"></i>
+                                </a>
+                                <button class="btn btn-danger" title="Eliminar" onclick="ConfirmEliminarPaciente(this); return false;">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr data-cama-id="@item.Id">
+                            <td>@item.Cama</td>
+                            <td colspan="3">
+                                <input type="text" name="paciente" class="form-control" placeholder="Agregar paciente" />
+                            </td>
+                            <td class="text-center">
+                                <a name="lnk_agregar" href="/Paciente/Add?CamaId=@item.Id" class="btn btn-default" onclick="AgregarPaciente(this); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span> Agregar</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>

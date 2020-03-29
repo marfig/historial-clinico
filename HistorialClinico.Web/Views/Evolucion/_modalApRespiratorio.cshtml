@@ -1,0 +1,144 @@
+﻿<div class="modal fadeIn" id="modalApRespiratorio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">Ap. Respiratorio</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Soporte Respiratorio</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @foreach (var item in (IEnumerable<HistorialClinico.Web.Models.Paciente.SoporteRespModel>)ViewBag.ListSoporteRespiratorio)
+                                {
+                                    <span>@item.Nombre </span><input name="SoporteRespiratorio" type="radio" value="@item.Id" data-parametros="@item.Parametros" />
+                                    <span>&nbsp;&nbsp;</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row valores" style="display: none">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input id="ValorSopResp" type="text" class="form-control" placeholder="Ingrese el Valor" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row parametros" style="display: none">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @Html.DropDownList("ddlVentilacion", (IEnumerable<SelectListItem>)ViewBag.ListVentilacion, "-- Ventilación", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row parametros" style="display: none">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @Html.DropDownList("ddlModalidad", (IEnumerable<SelectListItem>)ViewBag.ListModalidad, "-- Modalidad", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="parametros" style="display: none">
+                    <legend>Parámetros</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="tblSopRespParam" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListSopParametros)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td>@item.Text</td>
+                                            <td class="col-md-3"><input name="valor_parametro" class="form-control numeric" /></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Gasometría</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @Html.DropDownList("ddlGasometria", (IEnumerable<SelectListItem>)ViewBag.ListGasometria, "-- Gasometría", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="tblGasometriaParam" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListGasometriaParametros)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td>@item.Text</td>
+                                            <td class="col-md-3"><input name="valor_gasometria" class="form-control numeric" /></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Manejo</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Manejo" name="Manejo" class="form-control input-lg validate" data-validation-message="Debe ingresar la Manejo"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioApRespiratorio(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

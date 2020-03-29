@@ -1,0 +1,83 @@
+﻿@model List<HistorialClinico.Domain.DTO.CirugiaDTO>
+
+@Html.Partial("~/Views/Evolucion/_modalCirugia.cshtml")
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left">
+        <li>
+            <a href="javascript:void('0')" onclick="NuevoCirugia(0); return false;">
+                <i class="glyphicon glyphicon-plus-sign"></i> Agregar
+            </a>
+        </li>
+        @{
+            var active = "active";
+            foreach (var item in Model)
+            {
+                <li class="@active">
+                    <a href="#tab-hmn-@item.Id" title="@item.UserAdd" data-toggle="tab"><i class="glyphicon glyphicon-minus"></i> <span class="hidden-mobile">@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</span></a>
+                </li>
+                active = "";
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        @{
+            active = "active";
+            foreach (var item in Model)
+            {
+                <div class="tab-pane @active" id="tab-hmn-@item.Id" style="overflow: hidden">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Tuvo Cirugía: @string.Format("{0}", item.TuvoCirugia ? "SÍ" : "NO")</legend>
+                                @if (item.TuvoCirugia)
+                                {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">Técnica: </label>
+                                            <span>@item.Tecnica</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">Hallazgos: </label>
+                                            <span>@item.Hallazgos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Procedimiento: @string.Format("{0}", item.Procedimiento ? "SÍ" : "NO")</legend>
+                                @if (item.Procedimiento)
+                                {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">¿Cuál?: </label>
+                                            <span>@item.CualProcedimiento</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Otras Acotaciones</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.OtrasAcotaciones</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+                active = "";
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.SNCFormModel>
+
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+                    <p>
+                        <strong>Aspecto General: </strong>
+                        <span>@string.Join(",", item.AspectoGral.Select(c => c.Nombre))</span>
+                    </p>
+
+                    <p>
+                        <strong>Sedación: </strong>
+                        <span>@item.Sedacion</span>
+                        @if (item.ValorSedacion > 0)
+                        {
+                            <span style="text-decoration: underline">Valor: </span>
+                            <span>@item.ValorSedacion</span>
+                        }
+
+                        <br />
+
+                        @foreach (var med in item.MedicamentoSedacion)
+                        {
+                            <span style="text-decoration: underline">@med.Nombre:</span>
+                            <span>@med.Valor</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Laboratorio: </strong>
+
+                        @foreach (var lab in item.Laboratorio)
+                        {
+                            <span style="text-decoration: underline">@lab.Nombre:</span>
+                            <span>@string.Format("{0}", !lab.Fecha.HasValue ? "" : lab.Fecha.Value.ToString("dd/MM/yyyy"))</span>
+                            <span>@lab.Valor</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Imágenes: </strong>
+
+                        @foreach (var img in item.Imagenes)
+                        {
+                            <span style="text-decoration: underline">@img.Nombre:</span>
+                            <span>@string.Format("{0}", !img.Fecha.HasValue ? "" : img.Fecha.Value.ToString("dd/MM/yyyy"))</span>
+                            <span>@img.Valor</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Sx. Abstinencia: </strong>
+                        <span>@string.Format("{0}", item.SxAbstinencia ? "SI" : "NO")</span>
+                    </p>
+
+                    <p>
+                        <strong>Conocido Convulsionador: </strong>
+                        <span>@string.Format("{0}", item.ConocidoConvulsionador ? "SI" : "NO")</span>
+
+                        <br />
+
+                        @foreach (var med in item.MedicamentoConvulsionador)
+                        {
+                            <span style="text-decoration: underline">@med.Nombre:</span>
+                            <span>@med.Valor</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Eventos: </strong>
+                        <span>@item.Eventos</span>
+                    </p>
+
+                    <p>
+                        <strong>Planes: </strong>
+                        <span>@item.Planes</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

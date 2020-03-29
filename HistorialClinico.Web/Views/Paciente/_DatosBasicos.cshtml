@@ -1,0 +1,87 @@
+﻿@model HistorialClinico.Web.Models.Paciente.PacienteFormModel
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label>Nro. de Documento</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-file fa-lg fa-fw"></i></span>
+                <input asp-for="NroDocumento" class="form-control input-lg" placeholder="Nro. de Documento" type="text" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Nombres</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+                <input asp-for="Nombre" class="form-control input-lg validate" data-validation-message="Debe ingresar el Nombre" placeholder="Nombres" type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Apellidos</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+                <input asp-for="Apellido" class="form-control input-lg validate" data-validation-message="Debe ingresar el Apellido" placeholder="Apellidos" type="text" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Fecha de Nacimiento</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></span>
+                <input asp-for="FechaNacimiento" class="form-control input-lg date" data-dateformat="dd/mm/yy" placeholder="Fecha de Nacimiento" type="text" autocomplete="off" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Sexo</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info-circle fa-lg fa-fw"></i></span>
+                <select asp-for="Sexo" class="form-control input-lg validate" data-validation-message="Seleccione el sexo">
+                    <option value="">-- Sexo</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Peso</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info-circle fa-lg fa-fw"></i></span>
+                <input asp-for="Peso" class="form-control input-lg numeric" placeholder="Kilogramos" type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Grupo sanguíneo</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-info-circle fa-lg fa-fw"></i></span>
+                <select asp-for="GrupoSanguineo" class="form-control input-lg">
+                    <option value="">-- Grupo Sanguíneo</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

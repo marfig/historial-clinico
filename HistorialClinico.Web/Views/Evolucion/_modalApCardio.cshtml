@@ -1,0 +1,127 @@
+﻿<div class="modal fadeIn" id="modalApCardio">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">Ap. Cardiovascular</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Estado</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                Estable <input name="Estado" type="radio" value="E" class="validate" validation-message="Debe seleccionar un Estado" />
+                                Inestable <input name="Estado" type="radio" value="I" class="validate" />
+                                Labil <input name="Estado" type="radio" value="L" class="validate" />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Inotrópicos</legend>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="tblInotropicos" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            @Html.DropDownList("ddlInotropicos", (IEnumerable<SelectListItem>)ViewBag.ListInotropicos, "-- Seleccionar Inotrópico", new { @class = "form-control" })
+                                        </td>
+                                        <td>
+                                            <input id="txtValorInotropico" class="form-control numeric" type="text" placeholder="Valor" />
+                                        </td>
+                                        <td class="col-md-1 text-center" style="vertical-align: middle">
+                                            <a href="javascript:void('0')" onclick="AddInotropico()"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </fieldset>
+                <fieldset>
+                    <legend>Evaluación cardiológica</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="EvaluacionCardiologica" name="EvaluacionCardiologica" class="form-control input-lg validate" data-validation-message="Debe ingresar la Evaluación Cardiológica"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Enzimas cardiacas</legend>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <table id="tblEnzimas" class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Valor</th>
+                                            <th class="text-center">Curva</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListEnzimas)
+                                        {
+                                            <tr data-id="@item.Value">
+                                                <td>@item.Text</td>
+                                                <td class="col-md-3"><input name="valor_enzima" class="form-control numeric" /></td>
+                                                <td class="col-md-3">
+                                                    <select class="form-control" name="curva">
+                                                        <option value="">-- Curva</option>
+                                                        <option value="N">Normal</option>
+                                                        <option value="A">Aumentado</option>
+                                                        <option value="D">Disminuido</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioApCardiovascular(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

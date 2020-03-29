@@ -1,0 +1,29 @@
+﻿<div class="modal fadeIn" id="modalDiagnostico">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">Agregar diagnóstico</h4>
+            </div>
+            <div class="modal-body">
+                <div id="formDiagnostico">
+                    <input id="diagnostico_id" type="hidden" />
+
+                    <div class="form-group">
+                        <textarea id="txtResumen" class="form-control input-lg validate" data-validation-message="Debe ingresar el diagnóstico"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button id="btnAddDiagnostico" type="button" class="btn btn-primary btn-lg">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.InfectologicoFormModel>
+
+@Html.Partial("~/Views/Evolucion/_modalInfectologico.cshtml")
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left">
+        <li>
+            <a href="javascript:void('0')" onclick="NuevoInfectologico(0); return false;">
+                <i class="glyphicon glyphicon-plus-sign"></i> Agregar
+            </a>
+        </li>
+        @{
+            var active = "active";
+            foreach (var item in Model)
+            {
+                <li class="@active">
+                    <a href="#tab-infecto-@item.Id" title="@item.UserName" data-toggle="tab"><i class="glyphicon glyphicon-minus"></i> <span class="hidden-mobile">@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</span></a>
+                </li>
+                active = "";
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        @{
+            active = "active";
+            foreach (var item in Model)
+            {
+                <div class="tab-pane @active" id="tab-infecto-@item.Id" style="overflow: hidden">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Estado</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.EstadoInfectologico</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Cobertura Antibióticos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Dosis</th>
+                                                    <th class="text-center">Fecha Inicio</th>
+                                                    <th class="text-center">Día</th>
+                                                    <th class="text-center">Ajustado Clearence</th>
+                                                    <th class="text-center">Fecha Suspensión</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var atb in item.CoberturaAtb)
+                                                {
+                                                    <tr>
+                                                        <td>@atb.Antibiotico</td>
+                                                        <td><span>@string.Format("{0} {1}", atb.Dosis.ToString("N2"), atb.Unidad)</span></td>
+                                                        <td><span>@string.Format("{0}", atb.FechaInicio.ToString("dd/MM/yyyy"))</span></td>
+                                                        <td><span>@string.Format("{0}", atb.FechaSuspension.HasValue ? "" : ((DateTime.Now - atb.FechaInicio).Days + 1).ToString())</span></td>
+                                                        <td><span>@string.Format("{0}", atb.AjustadoClearence ? "SI" : "NO")</span></td>
+                                                        <td><span>@string.Format("{0}", atb.FechaSuspension.HasValue ? atb.FechaSuspension.Value.ToString("dd/MM/yyyy") : "")</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Cultivos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Resultado</th>
+                                                    <th class="text-center">Fecha</th>
+                                                    <th class="text-center">Sensibilidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var cult in item.Cultivos)
+                                                {
+                                                    <tr>
+                                                        <td>@cult.Nombre</td>
+                                                        <td><span>@string.Format("{0}", cult.Resultado ? "Positivo" : "Negativo")</span></td>
+                                                        <td><span>@cult.Fecha.ToString("dd/MM/yyyy")</span></td>
+                                                        <td>
+                                                            @if (cult.Sensibilidad != null)
+                                                            {
+                                                                <span>@string.Join(", ", cult.Sensibilidad.Select(c => c.Sensibilidad))</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Hisopados</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Resultado</th>
+                                                    <th class="text-center">Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var hisop in item.Hisopados)
+                                                {
+                                                    <tr>
+                                                        <td>@hisop.Nombre</td>
+                                                        <td><span>@string.Format("{0}", hisop.Resultado ? "Positivo" : "Negativo")</span></td>
+                                                        <td><span>@hisop.Fecha.ToString("dd/MM/yyyy")</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Interconsulta</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Interconsulta</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Eventos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Eventos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Planes</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Planes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                active = "";
+            }
+        }
+    </div>
+</div>

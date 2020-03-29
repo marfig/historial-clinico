@@ -1,0 +1,178 @@
+﻿@model HistorialClinico.Web.Models.Paciente.PacienteFormModel
+
+@{
+    var disabled_tab = "disabled";
+
+    if (Model.Id == 0)
+    {
+        disabled_tab = "disabled";
+    }
+}
+
+<section id="widget-grid" class="">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-lg-12 sortable-grid ui-sortable">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+                <header role="heading" class="ui-sortable-handle">
+                    <span class="widget-icon"> <i class="fa fa-check"></i> </span>
+
+                    @if (Model.CamaId > 0)
+                    {
+                        <h2>Cama @Model.CamaId - Agregar paciente</h2>
+                    }
+                    else
+                    {
+                        <h2>Paciente - Agregar nuevo</h2>
+                    }
+
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        <div class="row">
+                            <form id="formPaciente">
+
+                                <input asp-for="Id" type="hidden" />
+                                <input asp-for="CamaId" type="hidden" />
+                                <input asp-for="ContactosJSON" type="hidden" />
+
+                                <div id="bootstrap-wizard-1" class="col-sm-12">
+                                    <div class="form-bootstrapWizard">
+                                        <ul class="bootstrapWizard form-wizard">
+                                            <li class="active" data-target="#step1">
+                                                <a href="#tab1" data-toggle="tab" aria-expanded="true"> <span class="step">1</span> <span class="title">Información Básica</span> </a>
+                                            </li>
+                                            <li data-target="#step2" class="@disabled_tab">
+                                                <a href="#tab2" data-toggle="tab" aria-expanded="false"> <span class="step">2</span> <span class="title">Diagnósticos</span> </a>
+                                            </li>
+                                            <li data-target="#step3" class="@disabled_tab">
+                                                <a href="#tab3" data-toggle="tab" aria-expanded="false"> <span class="step">3</span> <span class="title">Evolución</span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab1">
+                                            <br>
+                                            <h3><strong>1 - Información Básica</strong></h3>
+
+                                            @Html.Partial("~/Views/Paciente/_DatosBasicos.cshtml", Model)
+
+                                            <fieldset>
+                                                <legend>Contactos (<a href="javascript:void('0')" title="Agregar nuevo contacto" onclick="AgregarContacto(); return false;">+</a>)</legend>
+                                                <div id="divContactos">
+                                                    @Html.Partial("~/Views/Paciente/_ContactoPaciente.cshtml", Model.Contactos)
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-actions">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <button id="btnGuardar" class="btn btn-primary pull-right btn-lg">
+                                                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab2">
+                                            <br>
+                                            <h3>
+                                                <strong>2 - Diagnósticos</strong>
+                                                <button class="btn btn-primary pull-right" onclick="DlgDiagnostico(0, ''); return false;">
+                                                    <i class="fa fa-plus-circle"></i> Agregar
+                                                </button>
+                                            </h3>
+
+                                            @Html.Partial("~/Views/Paciente/_modalDiagnostico.cshtml")
+
+                                            <div id="divDiagnosticos"></div>
+
+                                            <script id="responsive-column-template-diagnosticos" type="text/x-kendo-template">
+
+                                                <p class="col-template-val"><strong>Fecha: </strong> #=kendo.toString(kendo.parseDate(Fecha), "dd/MM/yyyy HH:mm")#</p>
+                                                <p class="col-template-val"><strong>Usuario: </strong>#=data.UserName#</p>
+                                                <p class="col-template-val"><strong>Diagnóstico: </strong>#=data.Resumen#</p>
+
+                                                <p class="col-template-val text-right">
+                                                    <a class="btn btn-primary" href="javascript:void('0')" onclick="DlgDiagnostico('#=Id#', '#=Resumen#')"><i class="fa fa-pencil"></i> Editar</a>
+                                                    <a onclick="DlgEliminarDiagnostico('#=Id#'); return false;" class="btn btn-danger" href="javascript:void('0')"><i class="fa fa-trash-o"></i> Eliminar</a>
+                                                </p>
+                                            </script>
+
+                                            <br />
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>PRMS III</label>
+                                                    <div class="input-group">
+                                                        @Html.DropDownListFor(m => m.PrmsId, (IEnumerable<SelectListItem>
+                                                            )ViewBag.PRMS, "-- Seleccione una opción", new { @class = "form-control input-lg" })
+                                                        <span id="checkPRMS" class="input-group-addon" style="display: none"><i class="fa fa-user fa-lg fa-check"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab3">
+                                            <br>
+                                            <h3>
+                                                <strong>3 - Evolución</strong>
+                                            </h3>
+
+                                            @Html.Partial("~/Views/Evolucion/_Index.cshtml")
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+        </article>
+    </div>
+
+    <!-- end row -->
+
+</section>
+
+@section Scripts{
+    <link href="~/css/kendo/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/css/kendo/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/css/kendo/kendo.default.mobile.min.css" rel="stylesheet" />
+
+    <script src="~/js/kendo/kendo.all.min.js"></script>
+    <script src="~/js/helpers/my-fields-validator.js"></script>
+    <script src="~/js/helpers/numbers_dates.js"></script>
+    <script src="~/js/paciente/add.paciente.js?20190813"></script>
+    <script src="~/js/paciente/paciente.ap.cardio.js?20190810"></script>
+    <script src="~/js/paciente/paciente.ap.resp.js?20190810"></script>
+    <script src="~/js/paciente/paciente.infecto.js?20190810"></script>
+    <script src="~/js/paciente/paciente.snc.js?20190810"></script>
+    <script src="~/js/paciente/paciente.hmn.js"></script>
+    <script src="~/js/paciente/paciente.hematologico.js"></script>
+    <script src="~/js/paciente/paciente.cirugia.js"></script>
+}

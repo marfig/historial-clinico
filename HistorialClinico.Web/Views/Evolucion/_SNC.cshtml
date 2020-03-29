@@ -1,0 +1,241 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.SNCFormModel>
+
+@Html.Partial("~/Views/Evolucion/_modalSNC.cshtml")
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left">
+        <li>
+            <a href="javascript:void('0')" onclick="NuevoSNC(0); return false;">
+                <i class="glyphicon glyphicon-plus-sign"></i> Agregar
+            </a>
+        </li>
+        @{
+            var active = "active";
+            foreach (var item in Model)
+            {
+                <li class="@active">
+                    <a href="#tab-snc-@item.Id" title="@item.UserName" data-toggle="tab"><i class="glyphicon glyphicon-minus"></i> <span class="hidden-mobile">@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</span></a>
+                </li>
+                active = "";
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        @{
+            active = "active";
+            foreach (var item in Model)
+            {
+                <div class="tab-pane @active" id="tab-snc-@item.Id" style="overflow: hidden">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Aspecto General</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>@string.Join(", ", item.AspectoGral.Select(c => c.Nombre))</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Sedación</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">@item.Sedacion</div>
+                                </div>
+                                @if (item.ValorSedacion > 0)
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label>Valor: </label>
+                                            @item.ValorSedacion.ToString("N2")
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Medicamento</th>
+                                                    <th class="text-center">Dosis</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var med in item.MedicamentoSedacion)
+                                                {
+                                                    <tr>
+                                                        <td>@med.Nombre</td>
+                                                        <td><span>@string.Format("{0}", (med.Valor ?? 0).ToString("N2"))</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Laboratorio</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Fecha</th>
+                                                    <th class="text-center">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var lab in item.Laboratorio)
+                                                {
+                                                    <tr>
+                                                        <td>@lab.Nombre</td>
+                                                        <td><span>@string.Format("{0}", !lab.Fecha.HasValue ? "" : lab.Fecha.Value.ToString("dd/MM/yyyy"))</span></td>
+                                                        <td><span>@string.Format("{0}", (lab.Valor ?? 0).ToString("N2"))</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Imágenes</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Fecha</th>
+                                                    <th class="text-center">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var img in item.Imagenes)
+                                                {
+                                                    <tr>
+                                                        <td>@img.Nombre</td>
+                                                        <td><span>@string.Format("{0}", !img.Fecha.HasValue ? "" : img.Fecha.Value.ToString("dd/MM/yyyy"))</span></td>
+                                                        <td><span>@string.Format("{0}", (img.Valor ?? 0).ToString("N2"))</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Sx Abstinencia</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@string.Format("{0}", item.SxAbstinencia ? "SÍ" : "NO")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (item.SxAbstinencia)
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-condensed table-bordered table-striped table-hover">
+                                                <tbody>
+                                                    @foreach (var med in item.ListSxAbstinencia)
+                                                    {
+                                                        <tr>
+                                                            <td>@med.Nombre</td>
+                                                            <td><span>@string.Format("{0}", (med.Valor ?? 0).ToString("N2"))</span></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-condensed table-bordered table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Medicamento</th>
+                                                        <th class="text-center">Dosis</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var med in item.ListSxAbstinenciaMedicacion)
+                                                    {
+                                                        <tr>
+                                                            <td>@med.Nombre</td>
+                                                            <td><span>@string.Format("{0}", (med.Valor ?? 0).ToString("N2"))</span></td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Conocido Convulsionador</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>@string.Format("{0}", item.ConocidoConvulsionador ? "SÍ" : "NO")</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Medicamento</th>
+                                                    <th class="text-center">Dosis</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var med in item.MedicamentoConvulsionador)
+                                                {
+                                                    <tr>
+                                                        <td>@med.Nombre</td>
+                                                        <td><span>@string.Format("{0}", (med.Valor ?? 0).ToString("N2"))</span></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Eventos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Eventos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Planes</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Planes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+                active = "";
+            }
+        }
+    </div>
+</div>

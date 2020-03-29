@@ -1,0 +1,231 @@
+﻿<div class="modal fadeIn" id="modalHematologico">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">Hematológico</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Hemograma</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <table class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center col-md-3">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>PAI</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Hemograma_PAI" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>HB</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Hemograma_HB" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>HTC</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Hemograma_HTC" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>PLT</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Hemograma_PLT" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Crasis</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <table class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center col-md-3">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>TP</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Crasis_TP" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>TTPA</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Crasis_TTPA" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Fibrinóginos</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Crasis_Fibrinoginos" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Vitamina K</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                Sí <input name="VitaminaK" type="radio" value="SI" />
+                                No <input name="VitaminaK" type="radio" value="NO" />
+                            </div>
+                            <div class="form-group">
+                                <label>Dosis</label>
+                                <input name="DosisVitaminaK" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha Inicio</label>
+                                <input name="FechaVitaminaK" class="form-control date" />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Sangrado Activo</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                Sí <input name="SangradoActivo" type="radio" value="SI" />
+                                No <input name="SangradoActivo" type="radio" value="NO" />
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar Sangrado</label>
+                                <textarea name="LugarSangrado" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Transfusiones</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                Sí <input name="Transfusiones" type="radio" value="SI" />
+                                No <input name="Transfusiones" type="radio" value="NO" />
+                            </div>
+                            <div class="form-group">
+                                <table class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center col-md-3">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>GRC</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Transfusiones_GRC" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>PFC</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Transfusiones_PFC" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>PLT</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Transfusiones_PLT" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>CRIO</span>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control numeric" name="Transfusiones_CRIO" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioHematologico(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

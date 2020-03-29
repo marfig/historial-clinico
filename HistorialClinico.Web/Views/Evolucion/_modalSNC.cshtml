@@ -1,0 +1,255 @@
+﻿<div class="modal fadeIn" id="modalSNC">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">SNC</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Aspecto General</legend>
+                    <div class="row">
+                        <input type="hidden" id="AspectoGralJSON" name="AspectoGralJSON" />
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListAspectoGral)
+                                {
+                                    <span>@item.Text </span><input name="chk_aspecto_gral" type="checkbox" value="@item.Value" />
+                                    <span>&nbsp;&nbsp;</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Sedación</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListSedacion)
+                                {
+                                    <span>@item.Text </span><input name="rb_sedacion" type="radio" value="@item.Value" data-requiere-valor="@item.Selected" />
+                                    <span>&nbsp;&nbsp;</span>
+                                }
+                            </div>
+                            <div id="divSedacion" class="form-group" style="display: none">
+                                <input id="txtValorSedacion" class="form-control input-sm numeric input-95" placeholder="valor" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" id="SedacionMedicamentoJSON" name="SedacionMedicamentoJSON" />
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblMedicamentoSedacion" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Medicamento</th>
+                                        <th class="text-center">Dosis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListMedicamentoSedacion)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="dosis_sedacion" type="text" class="form-control numeric input-95" placeholder="dosis" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Laboratorio</legend>
+                    <div class="row">
+                        <input type="hidden" id="LaboratorioJSON" name="LaboratorioJSON" />
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblLaboratorio" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Fecha</th>
+                                        <th class="text-center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListLaboratorio)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="fecha_laboratorio" type="text" class="form-control date input-95" placeholder="fecha" autocomplete="off" />
+                                            </td>
+                                            <td>
+                                                <input name="valor_laboratorio" type="text" class="form-control numeric input-95" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Imágenes</legend>
+                    <div class="row">
+                        <input type="hidden" id="ImagenesJSON" name="ImagenesJSON" />
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblImagenes" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Fecha</th>
+                                        <th class="text-center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListImagenes)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="fecha_img" type="text" class="form-control date input-95" placeholder="fecha" autocomplete="off" />
+                                            </td>
+                                            <td>
+                                                <input name="valor_img" type="text" class="form-control numeric input-95" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Sx Abstinencia</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <span>Sí </span><input name="rb_sx_abstinencia" type="radio" value="S" />
+                                <span>&nbsp;&nbsp;</span>
+                                <span>No </span><input name="rb_sx_abstinencia" type="radio" value="N" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divSxAbstinencia" class="row" style="display: none">
+                        <input type="hidden" id="SxAbstinenciaJSON" name="SxAbstinenciaJSON" />
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblSxAbstinencia" class="table table-condensed table-bordered table-striped table-hover">
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListSxAbstinencia)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="valor_sx" type="text" class="form-control numeric input-95" placeholder="valor" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <input type="hidden" id="SxAbstinenciaMedicacionJSON" name="SxAbstinenciaMedicacionJSON" />
+                            <table id="tblSxAbstinenciaMedicacion" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Medicamento</th>
+                                        <th class="text-center">Dosis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListSxAbstinenciaMedicacion)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="dosis_sx" type="text" class="form-control numeric input-95" placeholder="dosis" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Conocido Convulsionador</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <span>Sí </span><input name="rb_convulsionador" type="radio" value="S" />
+                                <span>&nbsp;&nbsp;</span>
+                                <span>No </span><input name="rb_convulsionador" type="radio" value="N" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="hidden" id="ConocidoConvulsionadorJSON" name="ConocidoConvulsionadorJSON" />
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblConvulsionador" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Medicamento</th>
+                                        <th class="text-center">Dosis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListAnticonvulsionante)
+                                    {
+                                        <tr data-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <input name="dosis_conv" type="text" class="form-control numeric input-95" placeholder="dosis" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioSNC(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

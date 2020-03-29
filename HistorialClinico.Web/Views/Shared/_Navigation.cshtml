@@ -1,0 +1,44 @@
+@using HistorialClinico.Common.Configuration
+@using HistorialClinico.Web.Extensions
+@inject IOptions<SmartSettings> Settings
+
+<aside id="left-panel">
+    <div class="login-info">
+        <span>
+            <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                <img src="~/img/avatars/male.png" alt="me" class="online" />
+                <span>@User.Identity.Name</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </span>
+    </div>
+    <nav>
+        <ul>
+            <li is-active-route asp-controller="Home">
+                <a href="#" title="Inicio">
+                    <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Inicio</span>
+                </a>
+                <ul>
+                    <li is-active-route asp-controller="CamaPaciente" asp-action="Index">
+                        <a asp-controller="CamaPaciente" asp-action="Index" title="Pacientes por Cama">
+                            <span class="menu-item-parent">Camas</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li is-active-route asp-controller="Misc">
+                <a href="#">
+                    <i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">Mantenimiento</span>
+                </a>
+                <ul>
+                    <li is-active-route asp-controller="Account" asp-action="List">
+                        <a asp-controller="Account" asp-action="List">Usuarios</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+</aside>

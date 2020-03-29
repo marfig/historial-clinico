@@ -1,0 +1,77 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.ApRespiratorioFormModel>
+
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+                    <p>
+                        <strong>Soporte Respiratorio: </strong>
+                        <span>@item.SoporteRespiratorio</span>
+                        <br />
+                        @if (!item.Parametros)
+                        {
+                            <span style="text-decoration: underline">Valor:</span>
+                            <span>@item.ValorSoporteResp</span>
+                        }
+                        else
+                        {
+                            <span style="text-decoration: underline">Ventilación:</span>
+                            <span>@item.Ventilacion</span>
+                            <span style="text-decoration: underline">Modalidad:</span>
+                            <span>@item.Modalidad</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Parámetros: </strong>
+
+                        @foreach (var param in item.SoporteRespiratorioParam)
+                        {
+                            <span style="text-decoration: underline">@param.Nombre:</span>
+                            <span>@string.Format("{0}", param.Valor.HasValue ? param.Valor.Value.ToString() : "")</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Gasometría: </strong>
+                        <span>@item.Gasometria</span>
+                        <br />
+
+                        @foreach (var param in item.GasometriaParam)
+                        {
+                            <span style="text-decoration: underline">@param.Nombre:</span>
+                            <span>@string.Format("{0}", param.Valor.HasValue ? param.Valor.Value.ToString() : "")</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Manejo: </strong>
+                        <span>@item.Manejo</span>
+                    </p>
+
+                    <p>
+                        <strong>Eventos: </strong>
+                        <span>@item.Eventos</span>
+                    </p>
+
+                    <p>
+                        <strong>Planes: </strong>
+                        <span>@item.Planes</span>
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

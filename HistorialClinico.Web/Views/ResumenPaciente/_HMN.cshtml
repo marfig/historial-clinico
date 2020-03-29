@@ -1,0 +1,77 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.HMNFormModel>
+
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+                    <p>
+                        <strong>General: </strong>
+
+                        @foreach (var g in item.General)
+                        {
+                            <span style="text-decoration: underline">@g.Nombre:</span>
+                            <span>@string.Format("{0}", g.Valor.HasValue ? g.Valor.Value.ToString() : "")</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Balance Hídrico: </strong>
+
+                        @foreach (var b in item.BalanceHidrico)
+                        {
+                            <span style="text-decoration: underline">@b.Nombre:</span>
+                            <span>@string.Format("{0}", b.Valor.HasValue ? b.Valor.Value.ToString() : "")</span>
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Diálisis peritoneal: </strong>
+                        <span>@string.Format("{0}", item.DialisisPeritoneal ? "SI" : "NO")</span>
+                    </p>
+
+
+                    <p>
+                        <strong>Laboratorios</strong>
+
+                        <br />
+
+                        @foreach (var group in item.Laboratorio.GroupBy(c => c.Categoria))
+                        {
+                            var cat = group.FirstOrDefault().Categoria;
+                            <span style="font-style: italic">@cat:</span><br />
+
+                            @foreach (var lab in group)
+                            {
+                                <span style="text-decoration: underline">@lab.Nombre:</span>
+                                <span>@string.Format("{0}", lab.Valor.HasValue ? lab.Valor.Value.ToString() : "")</span>
+                            }
+                            <br />
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Eventos: </strong>
+                        <span>@item.Eventos</span>
+                    </p>
+
+                    <p>
+                        <strong>Planes: </strong>
+                        <span>@item.Planes</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

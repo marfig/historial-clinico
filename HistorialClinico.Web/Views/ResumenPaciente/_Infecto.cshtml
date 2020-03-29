@@ -1,0 +1,94 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.InfectologicoFormModel>
+
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+                    <p>
+                        <strong>Estado: </strong>
+                        <span>@item.EstadoInfectologico</span>
+                    </p>
+
+                    <p>
+                        <strong>Cobertura Antibióticos: </strong>
+
+                        @foreach (var cob in item.CoberturaAtb)
+                        {
+                            <span style="text-decoration: underline">@cob.Antibiotico</span>
+                            <span style="text-decoration: underline"> - Dosis: </span>
+                            <span>@cob.Dosis</span>
+                            <span style="text-decoration: underline"> F. Inicio: </span>
+                            <span>@cob.FechaInicio.ToString("dd/MM/yyyy")</span>
+                            <span style="text-decoration: underline"> Ajustado Clearence: </span>
+                            <span>@string.Format("{0}", cob.AjustadoClearence ? "SI" : "NO")</span>
+                            <span style="text-decoration: underline"> Día: </span>
+                            <span>@string.Format("{0}", cob.FechaSuspension.HasValue ? "" : ((DateTime.Now - cob.FechaInicio).Days + 1).ToString())</span>
+                            <span style="text-decoration: underline"> F. Inicio: </span>
+                            <span>@string.Format("{0}", cob.FechaSuspension.HasValue ? cob.FechaSuspension.Value.ToString("dd/MM/yyyy") : "")</span>
+                            <br />
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Cultivos: </strong>
+                        <br />
+
+                        @foreach (var cul in item.Cultivos)
+                        {
+                            <span>@cul.Nombre -</span>
+                            <span style="text-decoration: underline">Resultado: </span>
+                            <span>@string.Format("{0}", cul.Resultado ? "Positivo" : "Negativo")</span>
+                            <span style="text-decoration: underline"> Fecha: </span>
+                            <span>@cul.Fecha.ToString("dd/MM/yyyy")</span>
+                            <span style="text-decoration: underline"> Sensibilidad: </span>
+                            <span>@string.Join(", ", cul.Sensibilidad.Select(c => c.Sensibilidad))</span>
+                            <br />
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Hisopados: </strong>
+
+                        <br />
+
+                        @foreach (var his in item.Hisopados)
+                        {
+                            <span>@his.Nombre -</span>
+                            <span style="text-decoration: underline">Resultado: </span>
+                            <span>@string.Format("{0}", his.Resultado ? "Positivo" : "Negativo")</span>
+                            <span style="text-decoration: underline"> Fecha: </span>
+                            <span>@his.Fecha.ToString("dd/MM/yyyy")</span>
+                            <br />
+                        }
+                    </p>
+
+                    <p>
+                        <strong>Interconsulta: </strong>
+                        <span>@item.Interconsulta</span>
+                    </p>
+
+                    <p>
+                        <strong>Eventos: </strong>
+                        <span>@item.Eventos</span>
+                    </p>
+
+                    <p>
+                        <strong>Planes: </strong>
+                        <span>@item.Planes</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

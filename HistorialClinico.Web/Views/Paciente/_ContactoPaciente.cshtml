@@ -1,0 +1,40 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.ContactoPacienteFormModel>
+
+@foreach (var item in Model)
+{
+    <div class="row" data-contacto-id="@item.ContactoId">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Tipo de Contacto</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-info-circle fa-lg fa-fw"></i></span>
+                    <select asp-for="@item.TipoContactoId" name="TipoContactoId" class="form-control input-lg">
+                        <option value="">-- Tipo de Contacto</option>
+                        <option value="P">Padre</option>
+                        <option value="M">Madre</option>
+                        <option value="H">Hermano/a</option>
+                        <option value="O">Otro</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Nombre Contacto</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></span>
+                    <input name="NombreContacto" class="form-control input-lg" placeholder="Nombre Contacto" type="text" value="@item.NombreContacto" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Nro. de Contacto</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-mobile-phone fa-lg fa-fw"></i></span>
+                    <input name="NroContacto" class="form-control input-lg" placeholder="Nro. de Contacto" type="tel" value="@item.NroContacto" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

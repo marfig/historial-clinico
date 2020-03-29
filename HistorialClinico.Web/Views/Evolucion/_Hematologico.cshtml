@@ -1,0 +1,242 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.HematologicoFormModel>
+
+@Html.Partial("~/Views/Evolucion/_modalHematologico.cshtml")
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left">
+        <li>
+            <a href="javascript:void('0')" onclick="NuevoHematologico(0); return false;">
+                <i class="glyphicon glyphicon-plus-sign"></i> Agregar
+            </a>
+        </li>
+        @{
+            var active = "active";
+            foreach (var item in Model)
+            {
+                <li class="@active">
+                    <a href="#tab-hmn-@item.Id" title="@item.UserName" data-toggle="tab"><i class="glyphicon glyphicon-minus"></i> <span class="hidden-mobile">@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</span></a>
+                </li>
+                active = "";
+            }
+        }
+    </ul>
+    <div class="tab-content">
+        @{
+            active = "active";
+            foreach (var item in Model)
+            {
+                <div class="tab-pane @active" id="tab-hmn-@item.Id" style="overflow: hidden">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Grupo Sanguíneo: @ViewBag.GrupoSanguineo</legend>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Hemograma</legend>
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center col-md-3">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span>PAI</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Hemograma_PAI ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>HB</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Hemograma_HB ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>HTC</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Hemograma_HTC ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>PLT</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Hemograma_PLT ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Crasis</legend>
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center col-md-3">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span>TP</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Crasis_TP ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>TTPA</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Crasis_TTPA ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>Fibrinóginos</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Crasis_Fibrinoginos ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Vitamina K: @string.Format("{0}", item.VitaminaK ? "SÍ" : "NO")</legend>
+                                @if (item.VitaminaK)
+                                {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">Dosis: </label>
+                                            <span>@string.Format("{0}", (item.DosisVitaminaK ?? 0).ToString("N2"))</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">Fecha Inicio: </label>
+                                            <span>@string.Format("{0}", !item.FechaVitaminaK.HasValue ? "" : item.FechaVitaminaK.Value.ToString("dd/MM/yyyy"))</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Sangrado Activo: @string.Format("{0}", item.SangradoActivo ? "SÍ" : "NO")</legend>
+                                @if (item.SangradoActivo)
+                                {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label style="text-decoration: underline">Lugar Sangrado: </label>
+                                            <span>@item.LugarSangrado</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Transfusiones: @string.Format("{0}", item.Transfusiones ? "SÍ" : "NO")</legend>
+                                @if (item.Transfusiones)
+                                {
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table class="table table-condensed table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center col-md-3">Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span>GRC</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Transfusiones_GRC ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>PFC</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Transfusiones_PFC ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>PLT</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Transfusiones_PLT ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>CRIO</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>@string.Format("{0}", (item.Transfusiones_CRIO ?? 0).ToString("N2"))</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                }
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Eventos</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Eventos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Planes</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span>@item.Planes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+                active = "";
+            }
+        }
+    </div>
+</div>

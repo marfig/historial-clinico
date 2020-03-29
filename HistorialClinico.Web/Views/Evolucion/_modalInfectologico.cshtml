@@ -1,0 +1,176 @@
+﻿<div class="modal fadeIn" id="modalInfectologico">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">Infectológico</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <legend>Estado</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListEstados)
+                                {
+                                    <span>@item.Text </span><input name="EstadoInfecto" type="radio" value="@item.Value" />
+                                    <span>&nbsp;&nbsp;</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Cobertura Antibióticos</legend>
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblCoberturaAtb" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <td><input id="nombre_atb" name="nombre_atb" type="text" class="form-control input-95" placeholder="Antibótico" /></td>
+                                        <td>
+                                            <input id="dosis" name="dosis" type="text" class="form-control numeric input-95" placeholder="dosis" />
+                                        </td>
+                                        <td>
+                                            <input id="unidad" name="unidad" type="text" class="form-control input-95" placeholder="unidad" />
+                                        </td>
+                                        <td><input id="fecha_inicio" name="fecha_inicio" type="text" class="form-control date input-95" placeholder="fecha inicio" /></td>
+                                        <td class="text-center"><input id="ajustado_clr" name="ajustado_clr" type="checkbox" placeholder="ajustado clearence" /></td>
+                                        <td><input id="fecha_suspension" name="fecha_suspension" type="text" class="form-control date input-95" placeholder="fecha suspensión" /></td>
+                                        <td class="col-md-1 text-center" style="vertical-align: middle">
+                                            <a href="javascript:void('0')" onclick="AddCoberturaAtb()"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Cultivos</legend>
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <input type="hidden" id="CultivosJSON" />
+                            <table id="tblCultivos" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Resultado</th>
+                                        <th class="text-center">Fecha</th>
+                                        <th class="text-center">Sensibilidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListCultivos)
+                                    {
+                                        <tr data-cultivo-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <select name="resultado_cultivo" class="form-control">
+                                                    <option value="">--Resultado</option>
+                                                    <option value="true">Positivo</option>
+                                                    <option value="false">Negativo</option>
+                                                </select>
+                                            </td>
+                                            <td><input name="fecha_cultivo" type="text" class="form-control date" /></td>
+                                            <td>
+                                                <div class="input-group">
+
+                                                    <input type="text" class="form-control" name="sensibilidad" placeholder="Sensibilidad">
+                                                    <a title="Agregar Sensibilidad" onclick="AddSensibilidad(this)" href="javascript:void('0')" class="input-group-addon"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                                                </div>
+                                                <ul class="list-sensibilidad">
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Hisopado</legend>
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <input type="hidden" id="HisopadoJSON" />
+                            <table id="tblHisopado" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Resultado</th>
+                                        <th class="text-center">Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListHisopados)
+                                    {
+                                        <tr data-hisopado-id="@item.Value">
+                                            <td><span>@item.Text</span></td>
+                                            <td>
+                                                <select name="resultado_hisopado" class="form-control">
+                                                    <option value="">--Resultado</option>
+                                                    <option value="true">Positivo</option>
+                                                    <option value="false">Negativo</option>
+                                                </select>
+                                            </td>
+                                            <td><input name="fecha_hisopado" type="text" class="form-control date" /></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Interconsulta</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Interconsulta" name="Interconsulta" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioInfectologico(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

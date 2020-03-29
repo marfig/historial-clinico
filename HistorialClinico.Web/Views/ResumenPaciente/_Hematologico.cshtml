@@ -1,0 +1,100 @@
+﻿@model List<HistorialClinico.Web.Models.Paciente.HematologicoFormModel>
+
+
+@foreach (var item in Model)
+{
+    <article class="col-lg-12 sortable-grid ui-sortable">
+        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-deletebutton="false">
+
+            <header role="heading" class="ui-sortable-handle">
+                <h2>@item.DateAdd.ToString("dd/MM/yyyy HH:mm")</h2>
+            </header>
+
+            <div>
+                <div class="widget-body">
+
+                    <p>
+                        <strong>Hemograma: </strong>
+
+                        <span style="text-decoration: underline">PAI:</span>
+                        <span>@string.Format("{0}", item.Hemograma_PAI.HasValue ? item.Hemograma_PAI.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">HB:</span>
+                        <span>@string.Format("{0}", item.Hemograma_HB.HasValue ? item.Hemograma_HB.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">HTC:</span>
+                        <span>@string.Format("{0}", item.Hemograma_HTC.HasValue ? item.Hemograma_HTC.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">PLT:</span>
+                        <span>@string.Format("{0}", item.Hemograma_PLT.HasValue ? item.Hemograma_PLT.Value.ToString() : "")</span>
+                    </p>
+
+                    <p>
+                        <strong>Crasis: </strong>
+
+                        <span style="text-decoration: underline">TP:</span>
+                        <span>@string.Format("{0}", item.Crasis_TP.HasValue ? item.Crasis_TP.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">TTPA:</span>
+                        <span>@string.Format("{0}", item.Crasis_TTPA.HasValue ? item.Crasis_TTPA.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">Fibrinóginos:</span>
+                        <span>@string.Format("{0}", item.Crasis_Fibrinoginos.HasValue ? item.Crasis_Fibrinoginos.Value.ToString() : "")</span>
+
+                    </p>
+
+                    <p>
+                        <strong>Vitamina K: </strong>
+                        <span>@string.Format("{0}", item.VitaminaK ? "SI" : "NO")</span>
+                        <br />
+                        <span style="text-decoration: underline">Dosis:</span>
+                        <span>@string.Format("{0}", item.DosisVitaminaK.HasValue ? item.DosisVitaminaK.Value.ToString() : "")</span>
+                        <span style="text-decoration: underline">Fecha Inicio:</span>
+                        <span>@string.Format("{0}", item.FechaVitaminaK.HasValue ? item.FechaVitaminaK.Value.ToString("dd/MM/yyyy") : "")</span>
+                    </p>
+
+                    <p>
+                        <strong>Sangrado Activo: </strong>
+                        <span>@string.Format("{0}", item.SangradoActivo ? "SI" : "NO")</span>
+                        <br />
+                        <span style="text-decoration: underline">Lugar Sangrado:</span>
+                        <span>@item.LugarSangrado</span>
+
+                    </p>
+
+                    <p>
+                        <strong>Transfusiones: </strong>
+                        <span>@string.Format("{0}", item.Transfusiones ? "SI" : "NO")</span>
+                        <br />
+                        <span style="text-decoration: underline">GRC:</span>
+                        <span>@string.Format("{0}", item.Transfusiones_GRC.HasValue ? item.Transfusiones_GRC.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">PFC:</span>
+                        <span>@string.Format("{0}", item.Transfusiones_PFC.HasValue ? item.Transfusiones_PFC.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">PLT:</span>
+                        <span>@string.Format("{0}", item.Transfusiones_PLT.HasValue ? item.Transfusiones_PLT.Value.ToString() : "")</span>
+
+                        <span style="text-decoration: underline">CRIO:</span>
+                        <span>@string.Format("{0}", item.Transfusiones_CRIO.HasValue ? item.Transfusiones_CRIO.Value.ToString() : "")</span>
+
+                    </p>
+
+                    <p>
+                        <strong>Eventos: </strong>
+                        <span>@item.Eventos</span>
+                    </p>
+
+                    <p>
+                        <strong>Planes: </strong>
+                        <span>@item.Planes</span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+
+

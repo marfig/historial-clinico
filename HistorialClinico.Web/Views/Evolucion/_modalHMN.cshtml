@@ -1,0 +1,177 @@
+﻿@using HistorialClinico.Web.Models.Paciente
+
+<div class="modal fadeIn" id="modalHMN">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">HMN</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="row">
+                        <input type="hidden" id="GeneralJSON" name="GeneralJSON" />
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <table id="tblHMNGral" class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center col-md-1"></th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center col-md-3">Valor/Formulación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListGeneralHMN)
+                                        {
+                                            <tr data-formulacion="@item.Selected">
+                                                <td class="text-center">
+                                                    <input type="checkbox" value="@item.Value" />
+                                                </td>
+                                                <td>
+                                                    <span>@item.Text </span>
+                                                </td>
+                                                <td>
+                                                    @if (item.Selected)
+                                                    {
+                                                        <input type="text" class="form-control" name="gral_formulacion" placeholder="formulacion" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" class="form-control numeric" name="gral_valor" placeholder="valor" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Balance Hídrico</legend>
+                    <div class="row">
+                        <input type="hidden" id="BalanceHidricoJSON" name="BalanceHidricoJSON" />
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <table id="tblBalanceHidrico" class="table table-condensed table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center col-md-3">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.ListBalanceHidrico)
+                                        {
+                                            <tr data-id="@item.Value">
+                                                <td>@item.Text</td>
+                                                <td>
+                                                    <input type="text" class="form-control numeric" name="balance_hidrico_valor" placeholder="valor" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Diálisis peritoneal</legend>
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <span>Sí </span><input name="chk_dialisis_peritoneal" type="radio" value="S" />
+                                <span>&nbsp;&nbsp;</span>
+                                <span>No </span><input name="chk_dialisis_peritoneal" type="radio" value="N" />
+                                <span>&nbsp;&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="divDialisisFormulacion" style="display: none">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Formulación: </label>
+                                <textarea id="FormulacionDialisisPeritoneal" name="FormulacionDialisisPeritoneal" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Laboratorio</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" id="LaboratorioHMNJSON" name="LaboratorioHMNJSON" />
+                            <table id="tblLaboratorioHMN" class="table table-condensed table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var group in ((IEnumerable<ListHMNModel>)ViewBag.ListLabHMN).GroupBy(c => c.Categoria))
+                                    {
+                                        var cat = group.FirstOrDefault().Categoria;
+                                        <tr data-id="0">
+                                            <th class="text-center" colspan="2">@cat</th>
+                                        </tr>
+
+                                        @foreach (var lab in group)
+                                        {
+                                            <tr data-id="@lab.Id">
+                                                <td>@lab.Nombre</td>
+                                                <td class="col-md-3">
+                                                    <input name="valor_lab" type="text" class="form-control numeric" placeholder="valor" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Eventos</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Eventos" name="Eventos" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Planes</legend>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea id="Planes" name="Planes" class="form-control input-lg"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="GuardarFormularioHMN(this); return false;">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
